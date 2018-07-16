@@ -3,9 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>Data Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <!-- icone menu -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   </head>
-  <body>
+  <body id="conteudo">
+    <header id='head'>
+      <i class="fas fa-bars"></i>
+      <img id='logo' src='assets/images/logo-laboratoria.svg' type='text/css'>
+      <i class="fas fa-user-circle"></i>
+    </header>
+    <nav>
+      <select id="menu-local"></select>
+      <select id="menu-class"></select>
+      <select id='scroll'>
+        <option>Todas as sedes</option>
+      </select>
+    </nav>
+    <div id="menu">
+      <ul>
+        <li type='submit'>Overview</li>
+        <li type='submit'>Termômetro</li>
+        <li type='submit'>Perfil</li>
+        <li type='submit'>Equipe</li>
+      </ul>
+    <div>
+      <input type='submit' value='+'>
+    </div>
 
+    <!-- graficos google charts -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<!-- Base de datos -->
 		<script src="./js/data.js"></script>
 		<!-- Aquí va tus archivos JS -->
