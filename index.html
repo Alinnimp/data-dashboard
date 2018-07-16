@@ -6,6 +6,9 @@
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <!-- icone menu -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- ícone perfil -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <!-- Ícone seta para direita -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
   </head>
   <body id="conteudo">
@@ -17,21 +20,16 @@
     <nav>
       <select id="menu-local"></select>
       <select id="menu-class"></select>
-      <select id='scroll'>
-        <option>Todas as sedes</option>
-      </select>
-    </nav>
-    <div id="menu">
+      <h1 id="selectTitle"></h1>
       <ul>
-        <li type='submit'>Overview</li>
-        <li type='submit'>Termômetro</li>
-        <li type='submit'>Perfil</li>
-        <li type='submit'>Equipe</li>
+        <li type='submit' id='overwiew'>Overview</li>
+        <li type='submit'id='termometro'>Termômetro</li>
+        <li type='submit' id='perfil'>Perfil</li>
+        <li type='submit' id='equipe'>Equipe</li>
       </ul>
-    <div>
-      <input type='submit' value='+'>
-    </div>
-
+    </nav>
+    <main id="main"></main>
+    <input type='submit' value='+'/>
     <!-- graficos google charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<!-- Base de datos -->
