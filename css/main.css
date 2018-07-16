@@ -1,12 +1,27 @@
 #head {
   height: 70px;
 }
+
 #logo{
   height: 60px;
 }
 
+nav {
+  display: flex;
+  flex-direction: column;
+}
 
+select {
+  width: 10vw;
+}
 
-/*
- * Estilos de tu proyecto
- */
+li {
+  display: flex;
+  flex-direction: row;
+}
+
+/* Google Charts */
+#graph-perfil, #graph-teacher, #graph-jedi {
+width: 40vw;
+height: 20vw;
+}
