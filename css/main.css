@@ -1,3 +1,7 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  margin: 0;
+}
 #head {
   height: 70px;
   display: flex;
@@ -8,46 +12,76 @@
 .fa-bars:before{
   font-size: 35px;
 }
+#logo {
+  height: 90px;
+}
 .fa-user-circle:before {
   font-size: 60px;
 }
-
-#logo {
-  height: 75px;
+nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 100px;
+  background-color: #ffe521;
 }
 .menuScroll {
   display: flex;
-  /* flex-direction: column; */
-  /* justify-content: space-between; */
-}
-nav {
-  height: 50px;
+  font-family: 'Bitter', serif;
 }
 #menu-local {
+  width: 200px;
   margin: 20px;
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   border-radius: 15px;
-  border-color: #ffc107
+  border-color: #ff009E;
+  font-size: 20px;
 }
 #menu-class {
+  width: 200px;
   margin: 20px;
-  padding: 5px;
+  padding: 5px 0px 5px 10px;
   border-radius: 15px;
-  border-color: #ffc107
+  border-color: #ff009E;
+  font-size: 20px;
 }
 ul {
   display: flex;
-  flex-direction: row;
+  font-family: 'Bitter', serif;
+  font-size: 25px;
+  list-style-type: none;
+  padding-left: 8px;
+}
+#menuLocal-content {
+  cursor: pointer;
+  background-color: #ffe521;
+}
+li {
+  margin-right: 35px;;
+  padding: 10px;;
+}
+li:hover {
+  cursor: pointer;
+  color: #ff009E;
+}
+.liSelected {
+  color: #ff009E;
+  background-color: beige;
+}
+.mainPerfil {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 footer {
   display: flex;
   justify-content: center;
 }
 #button {
-  border-radius: 10px;
+  border-radius: 45px;
   position: fixed;
-
-
+  background-color: #ff009E;
+  padding: 30px;
+  border: none;
 }
 /* Google Charts */
 #graph-perfil, #graph-teacher, #graph-jedi {
@@ -55,88 +89,56 @@ width: 40vw;
 height: 20vw;
 }
 
-body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  padding: 2vw;
-}
-
-h1, ul {
-  font-family: 'Bitter', serif;
-}
-
-main h1 {
-  font-family: 'Bitter', serif;
-  font-size: 1.5vw;
-}
-
-ul {
-  display: flex;
-  flex-direction: row;
-  font-size: 1.5vw;
-}
-
-li {
-  margin-right: 2vw;
-  padding: 1vw;
-}
-
-li:hover {
-  cursor: pointer;
-  color: #ff009E;
-}
-
-.liSelected {
-  color: #ff009E;
-  background-color: beige;
-}
-
 .mainPerfil {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #FFFEF2
 }
-
+main h1 {
+  font-family: 'Bitter', serif;
+  font-size: 25px;
+  margin: 40px;
+}
 #perfilSearchDiv {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 4vw;
+  margin-bottom: 30px;
 }
-
 #perfilSearch {
-  width: 27vw;
+  width: 40vw;
   box-sizing: border-box;
   border: 2px solid #56f89a;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 15px;
+  font-size: 20px;
   background-color: white;
   background-position: 10px 10px;
-  background-repeat: no-repeat;
-  padding: 12px 20px 12px 40px;
+  padding: 10px 20px 10px 40px;
 }
 
-.buttonSearch, .buttonInactiveStudents {
-  width: 6vw;
-  height: 3vw;
-  align-self: flex-end;
-  border-radius: 4px;
+.buttonSearch {
+  width: 100px;
+  height: 40px;
+  align-self: center;
+  border-radius: 10px;
+  color: #ff009E;
   background-color: #ffe521;
   border: none;
   text-align: center;
-  transition: all 0.5s;
   cursor: pointer;
-  margin: 5px;
+  margin-left: 20px;
+  font-size: solid 15px;
 }
-
 .buttonInactiveStudents {
-  width: 12vw;
+  width: 100px;
+  height: 40px;
+  align-self: center;
+  border-radius: 10px;
   color: #ff009E;
+  background-color: #ffe521;
+  border: none;
+  text-align: center;
+  cursor: pointer;
+  font-size: 15px;
+  margin-left: 10px;
 }
 
 .dadosPerfil {
