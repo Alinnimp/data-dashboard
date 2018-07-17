@@ -116,14 +116,16 @@ function overviewSelected() {
   overviewDesistenciaTitle.innerHTML = '% DESISTÊNCIA DAS TURMAS ATUAIS';
   overviewDesistenciaTitle.setAttribute('class', 'h1');
   main.appendChild(overviewDesistenciaTitle);
+  var divMainGraph = document.createElement('div');
+  divMainGraph.setAttribute('class', 'divMainGraph');
+  main.appendChild(divMainGraph);
   var sedes = Object.keys(data);
   for (i = 0; i < sedes.length; i++) {
     var sede = sedes[i];
     var idOfDiv = 'overviewchartdesist' + i;
     var div = document.createElement('div');
     div.setAttribute('id', idOfDiv);
-    var main = document.getElementById('main');
-    main.appendChild(div);
+    divMainGraph.appendChild(div);
     criarGraficoOverviewDesistencia(idOfDiv, sede);
   }
   // Gráfico NPS
@@ -131,13 +133,16 @@ function overviewSelected() {
   overviewNpsTitle.innerHTML = 'NPS ATUAL';
   overviewNpsTitle.setAttribute('class', 'h1');
   main.appendChild(overviewNpsTitle);
+  var divMainGraph2 = document.createElement('div');
+  divMainGraph2.setAttribute('class', 'divMainGraph');
+  main.appendChild(divMainGraph2);
   for (i = 0; i < sedes.length; i++) {
     var sede = sedes[i];
     var idOfDiv = 'overviewchart' + i;
     var div = document.createElement('div');
     div.setAttribute('id', idOfDiv);
     var main = document.getElementById('main');
-    main.appendChild(div);
+    divMainGraph2.appendChild(div);
     criarGraficoOverview(idOfDiv, sede);
   }
 }
@@ -185,12 +190,6 @@ function getArraytoGraphBaras() {
   return arraytoGraph;
 }
 
-function criarGraficoOverviewDesistencia() {
-
-}
-
-////////////////////////////////////////////////////////////////////////////////
-
 function criarGraficoOverviewDesistencia(idDoGrafico, sede) {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(function() {drawChartOverviewDesistencia(idDoGrafico, sede);});
@@ -230,7 +229,6 @@ function desistencia(sede){
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////////
 function criarGraficoOverview(idDoGrafico, sede) {
   google.charts.load('current', {'packages':['corechart']});
   google.charts.setOnLoadCallback(function() {drawChartOverview(idDoGrafico, sede);});
@@ -299,6 +297,9 @@ function perfilSelected() {
   buttonInactiveStudents.setAttribute('class', 'buttonInactiveStudents');
   buttonInactiveStudents.addEventListener('click', getInactiveStudents);
   perfilSearchDiv.appendChild(buttonInactiveStudents);
+  var divMainGraph = document.createElement('div');
+  divMainGraph.setAttribute('class', 'divMainGraph');
+  main.appendChild(divMainGraph);
   var localSelected = menuLocal.value;
   var classSelected = menuClass.value;
   var studentsTotal = data[localSelected][classSelected]['students'].length;
@@ -326,17 +327,20 @@ function perfilSelected() {
   }
 
   function getStudentSection(studentStatus, positionOfStudentInArray) {
-    var div = document.createElement('div');
-    div.setAttribute('class', 'dadosPerfil');
+    var divStudent = document.createElement('div');
+    divStudent.setAttribute('class', 'divStudent');
+    divMainGraph.appendChild(divStudent);
     var photo = data[localSelected][classSelected]['students'][positionOfStudentInArray]['photo'];
     var img = document.createElement('img');
     img.src = photo;
-    div.appendChild(img);
+    divStudent.appendChild(img);
+    var div = document.createElement('div');
+    div.setAttribute('class', 'dadosPerfil');
     var pName = document.createElement('p');
     var name = data[localSelected][classSelected]['students'][positionOfStudentInArray]['name'];
     pName.innerHTML = name;
     div.appendChild(pName);
-    main.appendChild(div);
+    divStudent.appendChild(div);
     if (studentStatus) {
       getActiveStudentSection(div, positionOfStudentInArray);
     }
@@ -451,14 +455,16 @@ function termometroSelected() {
   termometroTitle.innerHTML = 'DESEMPENHO ATUAL DAS ESTUDANTES';
   termometroTitle.setAttribute('class', 'h1');
   main.appendChild(termometroTitle);
+  var divMainGraph = document.createElement('div');
+  divMainGraph.setAttribute('class', 'divMainGraph');
+  main.appendChild(divMainGraph);
   var sedes = Object.keys(data);
   for (i = 0; i < sedes.length; i++) {
     var sede = sedes[i];
     var idOfDiv = 'piechart' + i;
     var div = document.createElement('div');
     div.setAttribute('id', idOfDiv);
-    var main = document.getElementById('main');
-    main.appendChild(div);
+    divMainGraph.appendChild(div);
     criarGrafico(idOfDiv, sede);
   }
 }
@@ -505,14 +511,17 @@ function equipeSelected() {
   equipeTitle.innerHTML = 'DESEMPENHO DA EQUIPE POR SPRINT';
   equipeTitle.setAttribute('class', 'h1');
   main.appendChild(equipeTitle);
+  var divMainGraph = document.createElement('div');
+  divMainGraph.setAttribute('class', 'divMainGraph');
+  main.appendChild(divMainGraph);
   var localSelected = menuLocal.value;
   var classSelected = menuClass.value;
   var graphTeacher = document.createElement('div');
   graphTeacher.setAttribute('id', 'graph-teacher');
-  main.appendChild(graphTeacher);
+  divMainGraph.appendChild(graphTeacher);
   var graphJedi = document.createElement('div');
   graphJedi.setAttribute('id', 'graph-jedi');
-  main.appendChild(graphJedi);
+  divMainGraph.appendChild(graphJedi);
 
   function getArraytoTeacherGraph() {
     var classSelectedSprints = data[localSelected][classSelected]['ratings'].length;
