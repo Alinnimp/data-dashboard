@@ -97,8 +97,8 @@ var sedes = Object.keys(data);
 overview.addEventListener('click', overviewSelected);
 
 function overviewSelected() {
-  menuLocal.style.visibility = 'hidden'; 
-  menuClass.style.visibility = 'hidden';
+  menuLocal.disabled = true;
+  menuClass.disabled = true;
   var main = document.getElementById('main');
   main.innerHTML = '';
   main.setAttribute('class', 'mainOverview');
@@ -267,8 +267,8 @@ var perfil = document.getElementById('perfil');
 perfil.addEventListener('click', perfilSelected);
 
 function perfilSelected() {
-  menuLocal.style.visibility = 'visible'; 
-  menuClass.style.visibility = 'visible'; 
+  menuLocal.disabled = false;
+  menuClass.disabled = false;
   main.innerHTML = '';
   main.classList.add('mainPerfil'); 
   var perfilTitle = document.createElement('h1');
@@ -441,8 +441,8 @@ var sedes = Object.keys(data);
 termometro.addEventListener('click', termometroSelected);
 
 function termometroSelected() {
-  menuLocal.style.visibility = 'hidden';
-  menuClass.style.visibility = 'hidden';
+  menuLocal.disabled = true;
+  menuClass.disabled = true;
   var main = document.getElementById('main');
   main.innerHTML = '';
   main.setAttribute('class', 'mainTermometro');
@@ -497,6 +497,8 @@ var equipe = document.getElementById('equipe');
 equipe.addEventListener('click', equipeSelected);
 
 function equipeSelected() {
+  menuLocal.disabled = false;
+  menuClass.disabled = false;
   main.innerHTML = '';
   var equipeTitle = document.createElement('h1');
   equipeTitle.innerHTML = 'DESEMPENHO DA EQUIPE POR SPRINT';

@@ -28,6 +28,10 @@ nav {
   display: flex;
   font-family: 'Bitter', serif;
 }
+#menuLinksUteis {
+  display: flex;
+  flex-direction: column;
+}
 #menu-local {
   width: 200px;
   margin: 20px;
