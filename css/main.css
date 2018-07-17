@@ -12,6 +12,13 @@
   font-size: 60px;
 }
 
+#menuLinksUteis {
+  display: flex;
+}
+#linksUteis {
+  flex-direction: column;
+}
+
 #logo {
   height: 75px;
 }
@@ -20,9 +27,7 @@
   /* flex-direction: column; */
   /* justify-content: space-between; */
 }
-nav {
-  height: 50px;
-}
+
 #menu-local {
   margin: 20px;
   padding: 5px;
