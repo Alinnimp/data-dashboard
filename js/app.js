@@ -184,7 +184,7 @@ function perfilSelected() {
       var studentNameSelected = document.getElementById('perfilSearch').value;
       studentNameSelected = this.parentNode.getElementsByTagName('p')[0].innerHTML;
       studentSearchButton(studentNameSelected);
-    });    
+    });
     div.appendChild(buttonPerfil);
   }
   // Versão 3.0 e 4.0 - Campo de busca das estudantes
@@ -310,7 +310,7 @@ equipe.addEventListener('click', equipeSelected);
 
 function equipeSelected() {
   main.innerHTML = '';
-  var equipeTitle = document.createElement('h1');
+  var equipeTile = document.createElement('h1');
   equipeTitle.innerHTML = 'DESEMPENHO DA EQUIPE POR SPRINT';
   equipeTitle.setAttribute('class', 'h1');
   main.appendChild(equipeTitle);

@@ -1,25 +1,54 @@
 #head {
   height: 70px;
-}
-
-#logo{
-  height: 60px;
-}
-
-nav {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  margin: 30px;
+  align-items: center;
+}
+.fa-bars:before{
+  font-size: 35px;
+}
+.fa-user-circle:before {
+  font-size: 60px;
 }
 
-select {
-  width: 10vw;
+#logo {
+  height: 75px;
 }
-
-li {
+.menuScroll {
+  display: flex;
+  /* flex-direction: column; */
+  /* justify-content: space-between; */
+}
+nav {
+  height: 50px;
+}
+#menu-local {
+  margin: 20px;
+  padding: 5px;
+  border-radius: 15px;
+  border-color: #ffc107
+}
+#menu-class {
+  margin: 20px;
+  padding: 5px;
+  border-radius: 15px;
+  border-color: #ffc107
+}
+ul {
   display: flex;
   flex-direction: row;
 }
+footer {
+  display: flex;
+  justify-content: center;
+}
+#button {
+  border-radius: 10px;
+  position: fixed;
 
+
+}
 /* Google Charts */
 #graph-perfil, #graph-teacher, #graph-jedi {
 width: 40vw;

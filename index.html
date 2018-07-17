@@ -18,8 +18,10 @@
       <i class="fas fa-user-circle"></i>
     </header>
     <nav>
-      <select id="menu-local"></select>
-      <select id="menu-class"></select>
+      <div class='menuScroll'>
+        <select id="menu-local"></select>
+        <select id="menu-class"></select>
+      </div>
       <h1 id="selectTitle"></h1>
       <ul>
         <li type='submit' id='overwiew'>Overview</li>
@@ -29,7 +31,9 @@
       </ul>
     </nav>
     <main id="main"></main>
-    <input type='submit' value='+'/>
+    <footer >
+      <input id='button' type='submit' value='+'/>
+    </footer>
     <!-- graficos google charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<!-- Base de datos -->
