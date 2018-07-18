@@ -2,6 +2,11 @@
 var menuLocal = document.getElementById('menu-local');
 var menuClass = document.getElementById('menu-class');
 
+var overview = document.getElementById('overview');
+var termometro = document.getElementById('termometro');
+var perfil = document.getElementById('perfil');
+var equipe = document.getElementById('equipe');
+
 window.onload = createLocalOptions();
 window.onload = overviewSelected();
 
@@ -38,21 +43,23 @@ function createClassOptions() {
 
 // Versão 1.0 - Seção 'Overview' do menu
 
-var overview = document.getElementById('overview');
-
 var sedes = Object.keys(data);
 
 overview.addEventListener('click', overviewSelected);
 
 function overviewSelected() {
-  menuLocal.disabled = true;
-  menuClass.disabled = true;
+  overview.classList.add('navSelected');
+  termometro.classList.remove('navSelected');
+  perfil.classList.remove('navSelected');
+  equipe.classList.remove('navSelected');
+  menuLocal.style.visibility = 'hidden';
+  menuClass.style.visibility = 'hidden';
   var main = document.getElementById('main');
   main.innerHTML = '';
   main.setAttribute('class', 'mainOverview');
   // Gráfico Barra
   var overviewBarrasTitle = document.createElement('h1');
-  overviewBarrasTitle.innerHTML = 'TOTAL DE ESTUDANTES ATIVAS HOJE';
+  overviewBarrasTitle.innerHTML = 'TOTAL DE ESTUDANTES ATIVAS HOJE*';
   overviewBarrasTitle.setAttribute('class', 'h1');
   main.appendChild(overviewBarrasTitle);
   var divGraphBarras = document.createElement('div');
@@ -61,7 +68,7 @@ function overviewSelected() {
   criarGraficoOverviewBarras();
   // Gráfico %Desistencia
   var overviewDesistenciaTitle = document.createElement('h1');
-  overviewDesistenciaTitle.innerHTML = '% DESISTÊNCIA DAS TURMAS ATUAIS';
+  overviewDesistenciaTitle.innerHTML = '% DESISTÊNCIA DAS TURMAS ATUAIS*';
   overviewDesistenciaTitle.setAttribute('class', 'h1');
   main.appendChild(overviewDesistenciaTitle);
   var divMainGraph = document.createElement('div');
@@ -78,7 +85,7 @@ function overviewSelected() {
   }
   // Gráfico NPS
   var overviewNpsTitle = document.createElement('h1');
-  overviewNpsTitle.innerHTML = 'NPS ATUAL';
+  overviewNpsTitle.innerHTML = 'NPS ATUAL*';
   overviewNpsTitle.setAttribute('class', 'h1');
   main.appendChild(overviewNpsTitle);
   var divMainGraph2 = document.createElement('div');
@@ -93,6 +100,10 @@ function overviewSelected() {
     divMainGraph2.appendChild(div);
     criarGraficoOverview(idOfDiv, sede);
   }
+  //Observação após os gráficos Overview
+  var overviewPs = document.createElement('p');
+  overviewPs.innerHTML = '*Dados referentes à última turma de cada Sede';
+  main.appendChild(overviewPs);
 }
 
 function criarGraficoOverviewBarras() {
@@ -108,7 +119,7 @@ function drawStuffOverview() {
     legend: { position: 'none' },
     chart: {},
     bar: { groupWidth: "50%" },
-    // chartArea:{left:10,top:0,width:'20%',height:'25%'}
+    colors:['#56f89a','#ff009e', '#ffe521']
   };
 
   var chart = new google.charts.Bar(document.getElementById('divGraphBarras'));
@@ -146,7 +157,8 @@ function criarGraficoOverviewDesistencia(idDoGrafico, sede) {
 function drawChartOverviewDesistencia(idOfDiv, sede) {
   var data = google.visualization.arrayToDataTable(desistencia(sede));
   var options = {
-    title: ''
+    title: '',
+    colors:['#ff009e', '#ffe521']
   };
   options['title'] = sede;
   var chart = new google.visualization.PieChart(document.getElementById(idOfDiv));
@@ -185,7 +197,8 @@ function criarGraficoOverview(idDoGrafico, sede) {
 function drawChartOverview(idOfDiv, sede) {
   var data = google.visualization.arrayToDataTable(nps(sede));
   var options = {
-    title: ''
+    title: '',
+    colors: ['#56f89a','#ff009e', '#ffe521']    
   };
   options['title'] = sede;
   var chart = new google.visualization.PieChart(document.getElementById(idOfDiv));
@@ -209,192 +222,207 @@ function nps(sede){
 
 // Versão 2.0 - Seção 'Perfil' do menu
 var main = document.getElementById('main');
-var perfil = document.getElementById('perfil');
 
 perfil.addEventListener('click', perfilSelected);
 
 function perfilSelected() {
-  menuLocal.disabled = false;
-  menuClass.disabled = false;
+  overview.classList.remove('navSelected');
+  termometro.classList.remove('navSelected');
+  perfil.classList.add('navSelected');
+  equipe.classList.remove('navSelected');
+  menuLocal.style.visibility = 'visible';
+  menuClass.style.visibility = 'visible';
   main.innerHTML = '';
   main.classList.add('mainPerfil');
   var perfilTitle = document.createElement('h1');
   perfilTitle.innerHTML = 'PERFIL DAS ESTUDANTES ATIVAS';
   perfilTitle.setAttribute('class', 'h1');
   main.appendChild(perfilTitle);
-  var perfilSearchDiv = document.createElement('div');
-  perfilSearchDiv.setAttribute('id', 'perfilSearchDiv');
-  main.appendChild(perfilSearchDiv);
-  var perfilSearch = document.createElement('input');
-  perfilSearch.setAttribute('id', 'perfilSearch');
-  perfilSearch.setAttribute('value', '');
-  perfilSearch.setAttribute('placeholder', 'Digite o nome da estudante');
-  perfilSearchDiv.appendChild(perfilSearch);
-  var buttonSearch = document.createElement('input');
-  buttonSearch.setAttribute('type', 'submit');
-  buttonSearch.setAttribute('value', 'Ver Perfil');
-  buttonSearch.setAttribute('class', 'buttonSearch');
-  buttonSearch.addEventListener('click', function () {
-    var studentNameSearch = document.getElementById('perfilSearch').value;
-    studentSearchButton(studentNameSearch);
-  });
-  perfilSearchDiv.appendChild(buttonSearch);
-  var buttonInactiveStudents = document.createElement('input');
-  buttonInactiveStudents.setAttribute('type', 'submit');
-  buttonInactiveStudents.setAttribute('value', 'Ver Estudantes Inativas');
-  buttonInactiveStudents.setAttribute('class', 'buttonInactiveStudents');
-  buttonInactiveStudents.addEventListener('click', getInactiveStudents);
-  perfilSearchDiv.appendChild(buttonInactiveStudents);
-  var localSelected = menuLocal.value;
-  var classSelected = menuClass.value;
-  var studentsTotal = data[localSelected][classSelected]['students'].length;
-  for (i = 0; i < studentsTotal; i++) {
-    var studentStatus = data[localSelected][classSelected]['students'][i]['active'];
-    if (studentStatus) {
-    getStudentSection(studentStatus, i);
-    }
-  }
-
-  function getInactiveStudents() {
+  menuClass.onchange = function () {
     main.innerHTML = '';
+    main.classList.add('mainPerfil');
+    var perfilTitle = document.createElement('h1');
+    perfilTitle.innerHTML = 'PERFIL DAS ESTUDANTES ATIVAS';
+    perfilTitle.setAttribute('class', 'h1');
+    main.appendChild(perfilTitle);
+    var perfilSearchDiv = document.createElement('div');
+    perfilSearchDiv.setAttribute('id', 'perfilSearchDiv');
+    main.appendChild(perfilSearchDiv);
+    var perfilSearch = document.createElement('input');
+    perfilSearch.setAttribute('id', 'perfilSearch');
+    perfilSearch.setAttribute('value', '');
+    perfilSearch.setAttribute('placeholder', 'Digite o nome e sobrenome da estudante');
+    perfilSearchDiv.appendChild(perfilSearch);
+    var buttonSearch = document.createElement('input');
+    buttonSearch.setAttribute('type', 'submit');
+    buttonSearch.setAttribute('value', 'Ver Perfil');
+    buttonSearch.setAttribute('class', 'buttonSearch');
+    buttonSearch.addEventListener('click', function () {
+      var studentNameSearch = document.getElementById('perfilSearch').value;
+      studentSearchButton(studentNameSearch);
+    });
+    perfilSearchDiv.appendChild(buttonSearch);
+    var buttonInactiveStudents = document.createElement('input');
+    buttonInactiveStudents.setAttribute('type', 'submit');
+    buttonInactiveStudents.setAttribute('value', 'Ver Estudantes Inativas');
+    buttonInactiveStudents.setAttribute('class', 'buttonInactiveStudents');
+    buttonInactiveStudents.addEventListener('click', getInactiveStudents);
+    perfilSearchDiv.appendChild(buttonInactiveStudents);
+    var localSelected = menuLocal.value;
+    var classSelected = menuClass.value;
     var studentsTotal = data[localSelected][classSelected]['students'].length;
-    var arrayOfInactiveStudentsPosition = [];
     for (i = 0; i < studentsTotal; i++) {
       var studentStatus = data[localSelected][classSelected]['students'][i]['active'];
-      if (!studentStatus) {
-        arrayOfInactiveStudentsPosition.push(i);
+      if (studentStatus) {
+      getStudentSection(studentStatus, i);
       }
     }
-    for (i = 0; i < arrayOfInactiveStudentsPosition.length; i++) {
-      var positionOfInactiveStudent = arrayOfInactiveStudentsPosition[i];
-      getStudentSection(studentStatus, positionOfInactiveStudent);
-    }
-  }
-
-  function getStudentSection(studentStatus, positionOfStudentInArray) {
-    var div = document.createElement('div');
-    div.setAttribute('class', 'dadosPerfil');
-    var photo = data[localSelected][classSelected]['students'][positionOfStudentInArray]['photo'];
-    var img = document.createElement('img');
-    img.src = photo;
-    div.appendChild(img);
-    var pName = document.createElement('p');
-    var name = data[localSelected][classSelected]['students'][positionOfStudentInArray]['name'];
-    pName.innerHTML = name;
-    div.appendChild(pName);
-    main.appendChild(div);
-    if (studentStatus) {
-      getActiveStudentSection(div, positionOfStudentInArray);
-    }
-  }
-
-  function getActiveStudentSection(div, positionOfStudentInArray) {
-    var pSubtitle = document.createElement('p');
-    var lastSprint = data[localSelected][classSelected]['students'][positionOfStudentInArray]['sprints'].length;
-    pSubtitle.innerHTML = 'Habilidades do último Sprint (Sprint ' + lastSprint + ')';
-    div.appendChild(pSubtitle);
-    var pTechScore = document.createElement('p');
-    var techScore = data[localSelected][classSelected]['students'][positionOfStudentInArray]['sprints'][lastSprint - 1]['score']['tech'];
-    var avarageTechScore = parseFloat(techScore / 1800).toFixed(3)*100;
-    pTechScore.innerHTML = avarageTechScore + '%' + '<br>' + 'Técnica';
-    pTechScore.setAttribute('class', 'pTechScore');
-    div.appendChild(pTechScore);
-    var pHseScore = document.createElement('p');
-    var hseScore = data[localSelected][classSelected]['students'][positionOfStudentInArray]['sprints'][lastSprint - 1]['score']['hse'];
-    var avarageHseScore = parseFloat(hseScore / 1200).toFixed(3)*100;
-    pHseScore.innerHTML = avarageHseScore + '%' + '<br>' + 'Socioemocional';
-    pHseScore.setAttribute('class', 'pHseScore');
-    div.appendChild(pHseScore);
-    var buttonPerfil = document.createElement('div');
-    buttonPerfil.innerHTML = 'Ver Perfil  <i class="fas fa-caret-right"></i>';
-    buttonPerfil.setAttribute('id', 'buttonPerfil')
-    buttonPerfil.addEventListener('click', function () {
-      var studentNameSelected = document.getElementById('perfilSearch').value;
-      studentNameSelected = this.parentNode.getElementsByTagName('p')[0].innerHTML;
-      studentSearchButton(studentNameSelected);
-    });
-    div.appendChild(buttonPerfil);
-  }
-  // Versão 3.0 e 4.0 - Campo de busca das estudantes
-  function studentSearchButton(studentName) {
-    var positionOfStudent = getLocalStudentsNames(localSelected, classSelected).indexOf(studentName);
-    var studentNameSearchStatus = data[localSelected][classSelected]['students'][positionOfStudent]['active'];
-    main.innerHTML = '';
-    getStudentSection(studentNameSearchStatus, positionOfStudent);
-    var buttonPerfil = document.getElementById('buttonPerfil');
-    buttonPerfil.parentNode.removeChild(buttonPerfil);
-
-    function getLocalStudentsNames(localSelected, classSelected) {
-      var studentsList = [];
-      for (i = 0; i < data[localSelected][classSelected]['students'].length; i++) {
-      studentsList.push(data[localSelected][classSelected]['students'][i]['name']);
+  
+    function getInactiveStudents() {
+      main.innerHTML = '';
+      var studentsTotal = data[localSelected][classSelected]['students'].length;
+      var arrayOfInactiveStudentsPosition = [];
+      for (i = 0; i < studentsTotal; i++) {
+        var studentStatus = data[localSelected][classSelected]['students'][i]['active'];
+        if (!studentStatus) {
+          arrayOfInactiveStudentsPosition.push(i);
+        }
       }
-      return studentsList;
-    }
-    // Requisitos para Google Charts
-    var graph = document.createElement('div');
-    graph.setAttribute('id', 'graph-perfil');
-    main.appendChild(graph);
-
-    function getArraytoGraph() {
-      var studentNameSearchSprints = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'].length;
-      var arraytoGraph = [];
-      for (i = 0; i < studentNameSearchSprints; i++) {
-        var elementsOfArray = [];
-        var firstElement = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'][i]['number'];
-        var secondElement = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'][i]['score']['tech'] / 1800;
-        var thirdElement = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'][i]['score']['hse'] / 1200;
-        elementsOfArray.push(firstElement);
-        elementsOfArray.push(secondElement);
-        elementsOfArray.push(thirdElement);
-        arraytoGraph.push(elementsOfArray);
+      var perfilInactiveTitle = document.createElement('h1');
+      perfilInactiveTitle.innerHTML = 'ESTUDANTES INATIVAS DA TURMA';
+      perfilInactiveTitle.setAttribute('class', 'h1');
+      main.appendChild(perfilInactiveTitle);
+      for (i = 0; i < arrayOfInactiveStudentsPosition.length; i++) {
+        var positionOfInactiveStudent = arrayOfInactiveStudentsPosition[i];
+        getStudentSection(studentStatus, positionOfInactiveStudent);
       }
-      return arraytoGraph;
     }
 
-    var graphTitle = 'Evolução da Habilidades Técnicas e Socioemocionais';
+    function getStudentSection(studentStatus, positionOfStudentInArray) {
+      var div = document.createElement('div');
+      div.setAttribute('class', 'dadosPerfil');
+      var photo = data[localSelected][classSelected]['students'][positionOfStudentInArray]['photo'];
+      var img = document.createElement('img');
+      img.src = photo;
+      div.appendChild(img);
+      var pName = document.createElement('p');
+      var name = data[localSelected][classSelected]['students'][positionOfStudentInArray]['name'];
+      pName.innerHTML = name;
+      div.appendChild(pName);
+      main.appendChild(div);
+      if (studentStatus) {
+        getActiveStudentSection(div, positionOfStudentInArray);
+      }
+    }
 
-    google.charts.load('current', {packages: ['corechart', 'line']});
-    google.charts.setOnLoadCallback(drawBasic);
+    function getActiveStudentSection(div, positionOfStudentInArray) {
+      var pSubtitle = document.createElement('p');
+      var lastSprint = data[localSelected][classSelected]['students'][positionOfStudentInArray]['sprints'].length;
+      pSubtitle.innerHTML = 'Habilidades do último Sprint (Sprint ' + lastSprint + ')';
+      div.appendChild(pSubtitle);
+      var pTechScore = document.createElement('p');
+      var techScore = data[localSelected][classSelected]['students'][positionOfStudentInArray]['sprints'][lastSprint - 1]['score']['tech'];
+      var avarageTechScore = parseFloat(techScore / 1800).toFixed(3)*100;
+      pTechScore.innerHTML = avarageTechScore + '%' + '<br>' + 'Técnica';
+      pTechScore.setAttribute('class', 'pTechScore');
+      div.appendChild(pTechScore);
+      var pHseScore = document.createElement('p');
+      var hseScore = data[localSelected][classSelected]['students'][positionOfStudentInArray]['sprints'][lastSprint - 1]['score']['hse'];
+      var avarageHseScore = parseFloat(hseScore / 1200).toFixed(3)*100;
+      pHseScore.innerHTML = avarageHseScore + '%' + '<br>' + 'Socioemocional';
+      pHseScore.setAttribute('class', 'pHseScore');
+      div.appendChild(pHseScore);
+      var buttonPerfil = document.createElement('div');
+      buttonPerfil.innerHTML = 'Ver Perfil  <i class="fas fa-caret-right"></i>';
+      buttonPerfil.setAttribute('id', 'buttonPerfil')
+      buttonPerfil.addEventListener('click', function () {
+        var studentNameSelected = document.getElementById('perfilSearch').value;
+        studentNameSelected = this.parentNode.getElementsByTagName('p')[0].innerHTML;
+        studentSearchButton(studentNameSelected);
+      });
+      div.appendChild(buttonPerfil);
+    }
+    // Versão 3.0 e 4.0 - Campo de busca das estudantes
+    function studentSearchButton(studentName) {
+      var positionOfStudent = getLocalStudentsNames(localSelected, classSelected).indexOf(studentName);
+      var studentNameSearchStatus = data[localSelected][classSelected]['students'][positionOfStudent]['active'];
+      main.innerHTML = '';
+      getStudentSection(studentNameSearchStatus, positionOfStudent);
+      var buttonPerfil = document.getElementById('buttonPerfil');
+      buttonPerfil.parentNode.removeChild(buttonPerfil);
 
-    // Função Google Charts
-    function drawBasic() {
+      function getLocalStudentsNames(localSelected, classSelected) {
+        var studentsList = [];
+        for (i = 0; i < data[localSelected][classSelected]['students'].length; i++) {
+        studentsList.push(data[localSelected][classSelected]['students'][i]['name']);
+        }
+        return studentsList;
+      }
+      // Requisitos para Google Charts
+      var graph = document.createElement('div');
+      graph.setAttribute('id', 'graph-perfil');
+      main.appendChild(graph);
 
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'Sprints');
-      data.addColumn('number', 'Tech');
-      data.addColumn('number', 'Hse');
+      function getArraytoGraph() {
+        var studentNameSearchSprints = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'].length;
+        var arraytoGraph = [];
+        for (i = 0; i < studentNameSearchSprints; i++) {
+          var elementsOfArray = [];
+          var firstElement = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'][i]['number'];
+          var secondElement = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'][i]['score']['tech'] / 1800;
+          var thirdElement = data[localSelected][classSelected]['students'][positionOfStudent]['sprints'][i]['score']['hse'] / 1200;
+          elementsOfArray.push(firstElement);
+          elementsOfArray.push(secondElement);
+          elementsOfArray.push(thirdElement);
+          arraytoGraph.push(elementsOfArray);
+        }
+        return arraytoGraph;
+      }
 
-      data.addRows(getArraytoGraph());
+      var graphTitle = 'Evolução da Habilidades Técnicas e Socioemocionais';
 
-      var options = {
-        title:''
-      };
-      options['title'] = graphTitle;
+      google.charts.load('current', {packages: ['corechart', 'line']});
+      google.charts.setOnLoadCallback(drawBasic);
 
-      var chart = new google.visualization.LineChart(document.getElementById('graph-perfil'));
+      // Função Google Charts
+      function drawBasic() {
 
-      chart.draw(data, options);
+        var data = new google.visualization.DataTable();
+        data.addColumn('number', 'Sprints');
+        data.addColumn('number', 'Tech');
+        data.addColumn('number', 'Hse');
+
+        data.addRows(getArraytoGraph());
+
+        var options = {
+          title:''
+        };
+        options['title'] = graphTitle;
+
+        var chart = new google.visualization.LineChart(document.getElementById('graph-perfil'));
+
+        chart.draw(data, options);
+      }
     }
   }
 }
-
 // Versão 5.0 - Seção 'Termômetro' do menu
-
-var termometro = document.getElementById('termometro');
-
 var sedes = Object.keys(data);
 
 termometro.addEventListener('click', termometroSelected);
 
 function termometroSelected() {
-  menuLocal.disabled = true;
-  menuClass.disabled = true;
+  overview.classList.remove('navSelected');
+  termometro.classList.add('navSelected');
+  perfil.classList.remove('navSelected');
+  equipe.classList.remove('navSelected');
+  menuLocal.style.visibility = 'hidden';
+  menuClass.style.visibility = 'hidden';
   var main = document.getElementById('main');
   main.innerHTML = '';
   main.setAttribute('class', 'mainTermometro');
   var termometroTitle = document.createElement('h1');
-  termometroTitle.innerHTML = 'DESEMPENHO ATUAL DAS ESTUDANTES';
+  termometroTitle.innerHTML = 'DESEMPENHO ATUAL DAS ESTUDANTES*';
   termometroTitle.setAttribute('class', 'h1');
   main.appendChild(termometroTitle);
   var divMainGraph = document.createElement('div');
@@ -409,6 +437,10 @@ function termometroSelected() {
     divMainGraph.appendChild(div);
     criarGrafico(idOfDiv, sede);
   }
+  //Observação após os gráficos Termômetro
+  var overviewPs = document.createElement('p');
+  overviewPs.innerHTML = '*Dados referentes à última turma de cada Sede';
+  main.appendChild(overviewPs);
 }
 
 function criarGrafico(idDoGrafico, sede) {
@@ -419,7 +451,8 @@ function criarGrafico(idDoGrafico, sede) {
 function drawChart(idOfDiv, sede) {
   var data = google.visualization.arrayToDataTable(cumpre(sede));
   var options = {
-    title: ''
+    title: '',
+    colors: ['#ff009e', '#56f89a', '#ffe521']
   };
   options['title'] = sede;
   var chart = new google.visualization.PieChart(document.getElementById(idOfDiv));
@@ -442,15 +475,18 @@ function cumpre(sede){
 }
 
 // Versão 6.0 - Seção 'Equipe' do menu
-var equipe = document.getElementById('equipe');
 equipe.addEventListener('click', equipeSelected);
 
 function equipeSelected() {
-  menuLocal.disabled = false;
-  menuClass.disabled = false;
+  overview.classList.remove('navSelected');
+  termometro.classList.remove('navSelected');
+  perfil.classList.remove('navSelected');
+  equipe.classList.add('navSelected');
+  menuLocal.style.visibility = 'visible';
+  menuClass.style.visibility = 'visible';
   main.innerHTML = '';
   var equipeTitle = document.createElement('h1');
-  equipeTitle.innerHTML = 'DESEMPENHO DA EQUIPE POR SPRINT';
+  equipeTitle.innerHTML = 'DESEMPENHO DA EQUIPE POR SPRINT (em relação à meta)';
   equipeTitle.setAttribute('class', 'h1');
   main.appendChild(equipeTitle);
   menuClass.onchange = function () {
@@ -486,7 +522,9 @@ function equipeSelected() {
       data.addColumn('number', 'Sprints');
       data.addColumn('number', 'Mentor');
       data.addRows(getArraytoTeacherGraph());
-      var options = {};
+      var options = {
+        colors: ['#ff009e', '#56f89a', '#ffe521']
+      };
       var chart = new google.visualization.LineChart(document.getElementById('graph-teacher'));
       chart.draw(data, options);
     }
@@ -511,9 +549,38 @@ function equipeSelected() {
       data.addColumn('number', 'Sprints');
       data.addColumn('number', 'Jedi');
       data.addRows(getArraytoTeacherGraph());
-      var options = {};
+      var options = {
+        colors: ['#ff009e', '#56f89a', '#ffe521']
+      };
       var chart = new google.visualization.LineChart(document.getElementById('graph-jedi'));
       chart.draw(data, options);
     }
   }
+}
+// VERSÃO MENU LATERAL LINKS ÚTEIS
+function openNav() {
+  document.getElementById("menuLinksUteis").style.width = "250px";
+}
+function closeNav() {
+  document.getElementById("menuLinksUteis").style.width = "0";
+}
+// VERSÃO BOTÃO PLUS
+function openButtonPlus() {
+  document.getElementById("buttonPlus").style.visibility = "visible";
+}
+function closeButtonPlus() {
+  document.getElementById("buttonPlus").style.visibility = "hidden";
+}
+
+function sendLinks() {
+  var menuLinksUteis = document.getElementById('menuLinksUteis');
+  var nomeLink = document.getElementById('nomeLink').value;
+  var endLink = document.getElementById('endLink').value;
+  var newLink = document.createElement('a');
+  newLink.innerHTML = nomeLink;
+  newLink.setAttribute('href', endLink);
+  newLink.setAttribute('target', '_blank');
+  menuLinksUteis.appendChild(newLink);
+  localStorage.setItem(newLink, nomeLink);
+  closeButtonPlus();
 }

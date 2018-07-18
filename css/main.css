@@ -32,32 +32,33 @@ nav {
   display: flex;
   flex-direction: column;
 }
-#menu-local {
-  width: 200px;
-  margin: 20px;
-  padding: 5px 10px 5px 10px;
-  border-radius: 15px;
+#menu-local, #menu-class {
+  margin-right: 2vw;
   border-color: #ff009E;
-  font-size: 20px;
+  background-color: white;
+  height: 34px;
+  width: 240px;
 }
-#menu-class {
-  width: 200px;
-  margin: 20px;
-  padding: 5px 0px 5px 10px;
-  border-radius: 15px;
-  border-color: #ff009E;
-  font-size: 20px;
+#menu-local:hover, #menu-class:hover {
+  cursor: pointer;
 }
+#menu-local select, #menu-class select {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 29px;
+  padding: 5px;
+  width: 268px;
+  height: 34px;
+  width: 268px;
+}
+
 ul {
   display: flex;
   font-family: 'Bitter', serif;
   font-size: 25px;
   list-style-type: none;
   padding-left: 8px;
-}
-#menuLocal-content {
-  cursor: pointer;
-  background-color: #ffe521;
 }
 li {
   margin-right: 35px;;
@@ -81,7 +82,6 @@ footer {
   text-align: center;
 }
 #button {
-  border-radius: 33px;
   border-radius: 45px;
   position: fixed;
   z-index: 1;
@@ -91,6 +91,13 @@ footer {
   padding: 30px;
   border: none;
 }
+
+#button:hover {
+  cursor: pointer;
+  padding: 33px;
+  transition: 0.1s;
+}
+
 /* Google Charts */
 #graph-perfil, #graph-teacher, #graph-jedi {
 width: 40vw;
@@ -113,10 +120,6 @@ main h1, .h1{
 #overviewchartdesist0{
   display: flex;
   align-self: baseline;
-}
-#overviewchartdesist1{
-  
-
 }
 #perfilSearchDiv {
   display: flex;
@@ -147,7 +150,7 @@ main h1, .h1{
   font-size: solid 15px;
 }
 .buttonInactiveStudents {
-  width: 100px;
+  width: 173px;
   height: 40px;
   align-self: center;
   border-radius: 10px;
@@ -200,4 +203,101 @@ main h1, .h1{
 
 .mainTermometro h1 {
   align-self: center;
+}
+
+#buttonPerfil:hover {
+  cursor: pointer;
+}
+
+.navSelected {
+  color: #ff009E;;
+  border-bottom: 8px solid #ff009E;;
+}
+
+.fas:hover {
+  cursor: pointer;
+}
+
+#menuLinksUteis {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: black;
+  color: white;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+#menuLinksUteis:hover, #menuLinksUteis a:hover {
+  cursor: pointer;
+}
+
+#menuLinksUteis h2, #menuLinksUteis p {
+  padding: 1vw;
+}
+
+#menuLinksUteis a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+#menuLinksUteis a:hover {
+  color: #f1f1f1;
+}
+
+#menuLinksUteis .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#buttonPlus {
+  height: 100%;
+  visibility: hidden;
+  position: fixed;
+  z-index: 1;
+  bottom: 15vw;
+  height: 10vw;
+  left: 30vw;
+  background-color: #ff009E;
+  color: #ffe521;
+  overflow-x: hidden;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  padding: 5vw;
+  border-radius: 12px;
+  overflow-y: hidden;
+}
+
+#buttonPlus input {
+  margin-bottom: 1vw;
+}
+
+.closebtn {
+  font-weight: bolder;
+  cursor: pointer;
+}
+
+.salvarLink {
+  text-align: center;
+  align-self: flex-end;
+  background-color: #ffe521;
+  border: none;
+  padding: 17px;
+  border-radius: 8px;
+}
+
+.salvarLink:hover {
+  cursor: pointer;
 }

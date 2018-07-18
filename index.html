@@ -16,14 +16,15 @@
     <link href="https://fonts.googleapis.com/css?family=Bitter|Open+Sans" rel="stylesheet">
   </head>
   <body id="conteudo">
+    <div id="menuLinksUteis">
+      <a class="closebtn" onclick="closeNav()">x</a>
+      <h2 style="color: #ffe521">Meus Links Úteis:</h2>
+      <p>*Para inserir um novo link, clique no botão "+"</p>
+      <a href="https://www.google.com/calendar" target="_blank">Google Calendar</a>
+      <a href="https://claseslaboratoria.slack.com" target="_blank">Slack</a>
+    </div>
     <header id='head'>
-      <div id="menuLinksUteis">
-        <i class="fas fa-bars"></i>
-        <ul id="linksUteis" class="enabled-menu">
-          <li>teste</li>
-          <li>teste</li>
-        </ul>
-      </div>
+      <i class="fas fa-bars" onclick="openNav()"></i>
       <img id='logo' src='assets/images/logo.png' type='text/css'>
       <i class="fas fa-user-circle"></i>
     </header>
@@ -32,7 +33,7 @@
         <select id="menu-local"></select>
         <select id="menu-class"></select>
       </div>
-      <ul>
+      <ul id="nav-ul">
         <li type='submit' id='overview'>Overview</li>
         <li type='submit'id='termometro'>Termômetro</li>
         <li type='submit' id='perfil'>Perfil</li>
@@ -41,8 +42,14 @@
     </nav>
     <main id="main"></main>
     <footer >
-      <div id='button'><i class="fas fa-plus fa-2x"></i></div>
-
+      <div id='buttonPlus'>
+        <a class="closebtn" onclick="closeButtonPlus()">X</a>
+        <h3>Insira um link útil do seu dia-a-dia =)</h3>
+        <input id="nomeLink" type="text" placeholder="Insira o nome do link"></input>
+        <input id="endLink" type="text" placeholder="Insira o endereço do link"></input>
+        <input type="submit" value="Salvar" class="salvarLink" onclick="sendLinks()"></input>
+      </div>
+      <div id='button' onclick="openButtonPlus()"><i class="fas fa-plus fa-2x"></i></div>
     </footer>
     <!-- graficos google charts -->
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
