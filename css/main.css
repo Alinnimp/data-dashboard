@@ -113,6 +113,12 @@ height: 20vw;
   flex-direction: column;
   align-items: center;
 }
+
+.mainOverview p, .mainTermometro p {
+  align-self: start;
+  padding-left: 2vw;
+}
+
 main h1, .h1{
   font-family: 'Bitter', serif;
   font-size: 30px;
@@ -315,4 +321,9 @@ main h1, .h1{
 
 .salvarLink:hover {
   cursor: pointer;
+}
+
+.fa-angle-double-left {
+  align-self: self-end;
+  margin: 2vw 9vw;
 }

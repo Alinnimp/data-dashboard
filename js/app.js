@@ -288,6 +288,18 @@ function perfilSelected() {
           arrayOfInactiveStudentsPosition.push(i);
         }
       }
+      // Botão Voltar
+      var goBack = document.createElement('i');
+      goBack.classList.add('fas');
+      goBack.classList.add('fa-angle-double-left');
+      goBack.classList.add('fa-3x');
+      main.appendChild(goBack);
+      goBack.addEventListener('click', function() {
+        perfilSelected();
+        menuLocal.value = 'Selecione a sede';
+        menuClass.value = 'Selecione a turma';
+      });
+      //
       var perfilInactiveTitle = document.createElement('h1');
       perfilInactiveTitle.innerHTML = 'ESTUDANTES INATIVAS DA TURMA';
       perfilInactiveTitle.setAttribute('class', 'h1');
@@ -347,6 +359,18 @@ function perfilSelected() {
       var positionOfStudent = getLocalStudentsNames(localSelected, classSelected).indexOf(studentName);
       var studentNameSearchStatus = data[localSelected][classSelected]['students'][positionOfStudent]['active'];
       main.innerHTML = '';
+      // Botão Voltar
+      var goBack = document.createElement('i');
+      goBack.classList.add('fas');
+      goBack.classList.add('fa-angle-double-left');
+      goBack.classList.add('fa-3x');
+      main.appendChild(goBack);
+      goBack.addEventListener('click', function() {
+        perfilSelected();
+        menuLocal.value = 'Selecione a sede';
+        menuClass.value = 'Selecione a turma';
+      });
+      //
       getStudentSection(studentNameSearchStatus, positionOfStudent);
       var buttonPerfil = document.getElementById('buttonPerfil');
       buttonPerfil.parentNode.removeChild(buttonPerfil);
