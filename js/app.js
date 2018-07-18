@@ -419,7 +419,8 @@ function perfilSelected() {
         data.addRows(getArraytoGraph());
 
         var options = {
-          title:''
+          title:'',
+          colors: ['#ff009e', '#56f89a', '#ffe521']
         };
         options['title'] = graphTitle;
 
