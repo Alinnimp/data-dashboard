@@ -33,11 +33,13 @@ nav {
   flex-direction: column;
 }
 #menu-local, #menu-class {
-  margin-right: 2vw;
   border-color: #ff009E;
   background-color: white;
-  height: 34px;
-  width: 240px;
+  width: 200px;
+  margin: 20px;
+  padding: 5px 0px 5px 10px;
+  border-radius: 15px;
+  font-size: 20px;
 }
 #menu-local:hover, #menu-class:hover {
   cursor: pointer;
@@ -51,6 +53,8 @@ nav {
   width: 268px;
   height: 34px;
   width: 268px;
+  font-size: 20px;
+  background-color: white;
 }
 
 ul {
@@ -104,7 +108,7 @@ width: 40vw;
 height: 20vw;
 }
 
-.mainPerfil, .mainOverview {
+.mainPerfil, .mainOverview, .mainTermometro {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -150,7 +154,7 @@ main h1, .h1{
   font-size: solid 15px;
 }
 .buttonInactiveStudents {
-  width: 173px;
+  width: 170px;
   height: 40px;
   align-self: center;
   border-radius: 10px;
@@ -173,7 +177,25 @@ main h1, .h1{
   padding: 3vw;
   box-shadow: 0 6px 6px -6px #ffe521;;
 }
-
+.divMainGraph {
+  display:flex;
+  width: 70%;
+  height: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#overviewchartdesist0, #overviewchart0, #piechart0 {
+  margin:30px;
+}
+#overviewchartdesist1, #overviewchart1, #piechart1 {
+  margin:30px;
+}
+#overviewchartdesist2, #overviewchart2, #piechart2 {
+  margin:30px;
+}
+#overviewchartdesist3, #overviewchart3, #piechart3 {
+  margin:30px;
+}
 .dadosPerfil img {
   margin-right: 1vw;
   width: 12vw;
@@ -194,13 +216,6 @@ main h1, .h1{
 .dadosPerfil div {
   color: #ff009E;
 }
-
-.mainTermometro {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .mainTermometro h1 {
   align-self: center;
 }
