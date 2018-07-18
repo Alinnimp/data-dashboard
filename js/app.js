@@ -1,55 +1,3 @@
-// GRAFICO OVERVIEW
-// google.charts.load('current', {packages: ['corechart', 'line']});
-// google.charts.setOnLoadCallback(drawCurveTypes);
-//
-// function drawCurveTypes() {
-//       var data = new google.visualization.DataTable();
-//       data.addColumn('number', 'Sprints');
-//       data.addColumn('number', '2016-2');
-//       data.addColumn('number', '2017-1');
-//
-//       data.addRows();
-//       var options = {
-//         hAxis: {
-//           title: 'Time'
-//         },
-//         vAxis: {
-//           title: 'Popularity'
-//         },
-//         series: {
-//           1: {curveType: 'function'}
-//         }
-//       };
-//
-//       var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-//       chart.draw(data, options);
-//     }
-// function getRowsGraphOverview (){
-//   // var localSelected = document.getElementById('menu-local');
-//   // var classSelected = document.getElementById('menu-class');
-//   var sprints = [];
-//   var paraMedia = [];
-//
-//   for (i = 0; i < data['AQP'].length; i++) {
-//     for (j = 0; j < data['AQP'][i]['students'].length; j++){
-//        for (k = 0; k < data['AQP'][i]['students'][j]['sprints'].length; k++){
-//          sprints.push(k + 1);
-//          var nota = data['AQP'][i]['students'][j]['sprints'][k]['score']['tech'];
-//          paraMedia.push(nota);
-//        }
-//      }
-//   }
-// console.log(sprints);
-// console.log(paraMedia);
-//
-// }
-// getRowsGraphOverview();
-// Puedes hacer uso de la base de datos a través de la variable `data`
-// console.log(data);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 // Versão 1.0 - Lista suspensa das sedes e das turmas
 var menuLocal = document.getElementById('menu-local');
 var menuClass = document.getElementById('menu-class');
@@ -297,9 +245,6 @@ function perfilSelected() {
   buttonInactiveStudents.setAttribute('class', 'buttonInactiveStudents');
   buttonInactiveStudents.addEventListener('click', getInactiveStudents);
   perfilSearchDiv.appendChild(buttonInactiveStudents);
-  var divMainGraph = document.createElement('div');
-  divMainGraph.setAttribute('class', 'divMainGraph');
-  main.appendChild(divMainGraph);
   var localSelected = menuLocal.value;
   var classSelected = menuClass.value;
   var studentsTotal = data[localSelected][classSelected]['students'].length;
@@ -327,20 +272,17 @@ function perfilSelected() {
   }
 
   function getStudentSection(studentStatus, positionOfStudentInArray) {
-    var divStudent = document.createElement('div');
-    divStudent.setAttribute('class', 'divStudent');
-    divMainGraph.appendChild(divStudent);
+    var div = document.createElement('div');
+    div.setAttribute('class', 'dadosPerfil');
     var photo = data[localSelected][classSelected]['students'][positionOfStudentInArray]['photo'];
     var img = document.createElement('img');
     img.src = photo;
-    divStudent.appendChild(img);
-    var div = document.createElement('div');
-    div.setAttribute('class', 'dadosPerfil');
+    div.appendChild(img);
     var pName = document.createElement('p');
     var name = data[localSelected][classSelected]['students'][positionOfStudentInArray]['name'];
     pName.innerHTML = name;
     div.appendChild(pName);
-    divStudent.appendChild(div);
+    main.appendChild(div);
     if (studentStatus) {
       getActiveStudentSection(div, positionOfStudentInArray);
     }
@@ -511,65 +453,67 @@ function equipeSelected() {
   equipeTitle.innerHTML = 'DESEMPENHO DA EQUIPE POR SPRINT';
   equipeTitle.setAttribute('class', 'h1');
   main.appendChild(equipeTitle);
-  var divMainGraph = document.createElement('div');
-  divMainGraph.setAttribute('class', 'divMainGraph');
-  main.appendChild(divMainGraph);
-  var localSelected = menuLocal.value;
-  var classSelected = menuClass.value;
-  var graphTeacher = document.createElement('div');
-  graphTeacher.setAttribute('id', 'graph-teacher');
-  divMainGraph.appendChild(graphTeacher);
-  var graphJedi = document.createElement('div');
-  graphJedi.setAttribute('id', 'graph-jedi');
-  divMainGraph.appendChild(graphJedi);
+  menuClass.onchange = function () {
+    var divMainGraph = document.createElement('div');
+    divMainGraph.setAttribute('class', 'divMainGraph');
+    main.appendChild(divMainGraph);
+    var localSelected = menuLocal.value;
+    var classSelected = menuClass.value;
+    var graphTeacher = document.createElement('div');
+    graphTeacher.setAttribute('id', 'graph-teacher');
+    divMainGraph.appendChild(graphTeacher);
+    var graphJedi = document.createElement('div');
+    graphJedi.setAttribute('id', 'graph-jedi');
+    divMainGraph.appendChild(graphJedi);
 
-  function getArraytoTeacherGraph() {
-    var classSelectedSprints = data[localSelected][classSelected]['ratings'].length;
-    var arraytoGraph = [];
-    for (i = 0; i < classSelectedSprints; i++) {
-      var elementsOfArray = [];
-      var firstElement = data[localSelected][classSelected]['ratings'][i]['sprint'];
-      var secondElement = data[localSelected][classSelected]['ratings'][i]['teacher'] / 5;
-      elementsOfArray.push(firstElement);
-      elementsOfArray.push(secondElement);
-      arraytoGraph.push(elementsOfArray);
+    function getArraytoTeacherGraph() {
+      var classSelectedSprints = data[localSelected][classSelected]['ratings'].length;
+      var arraytoGraph = [];
+      for (i = 0; i < classSelectedSprints; i++) {
+        var elementsOfArray = [];
+        var firstElement = data[localSelected][classSelected]['ratings'][i]['sprint'];
+        var secondElement = data[localSelected][classSelected]['ratings'][i]['teacher'] / 5;
+        elementsOfArray.push(firstElement);
+        elementsOfArray.push(secondElement);
+        arraytoGraph.push(elementsOfArray);
+      }
+        return arraytoGraph;
     }
-      return arraytoGraph;
-  }
-  google.charts.load('current', {packages: ['corechart', 'line']});
-  google.charts.setOnLoadCallback(runGraphToTeacher);
-  function runGraphToTeacher() {
-    var data = new google.visualization.DataTable();
-    data.addColumn('number', 'Sprints');
-    data.addColumn('number', 'Mentor');
-    data.addRows(getArraytoTeacherGraph());
-    var options = {};
-    var chart = new google.visualization.LineChart(document.getElementById('graph-teacher'));
-    chart.draw(data, options);
-  }
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(runGraphToTeacher);
+    function runGraphToTeacher() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Sprints');
+      data.addColumn('number', 'Mentor');
+      data.addRows(getArraytoTeacherGraph());
+      var options = {};
+      var chart = new google.visualization.LineChart(document.getElementById('graph-teacher'));
+      chart.draw(data, options);
+    }
 
-  function getArraytoJediGraph() {
-    var classSelectedSprints = data[localSelected][classSelected]['ratings'].length;
-    var arraytoGraph = [];
-    for (i = 0; i < classSelectedSprints; i++) {
-      var elementsOfArray = [];
-      var firstElement = data[localSelected][classSelected]['ratings'][i]['sprint'];
-      var secondElement = data[localSelected][classSelected]['ratings'][i]['jedi'] / 5;
-      elementsOfArray.push(firstElement);
-      elementsOfArray.push(secondElement);
-      arraytoGraph.push(elementsOfArray);
+    function getArraytoJediGraph() {
+      var classSelectedSprints = data[localSelected][classSelected]['ratings'].length;
+      var arraytoGraph = [];
+      for (i = 0; i < classSelectedSprints; i++) {
+        var elementsOfArray = [];
+        var firstElement = data[localSelected][classSelected]['ratings'][i]['sprint'];
+        var secondElement = data[localSelected][classSelected]['ratings'][i]['jedi'] / 5;
+        elementsOfArray.push(firstElement);
+        elementsOfArray.push(secondElement);
+        arraytoGraph.push(elementsOfArray);
+      }
+        return arraytoGraph;
     }
-      return arraytoGraph;
-  }
-  google.charts.load('current', {packages: ['corechart', 'line']});
-  google.charts.setOnLoadCallback(runGraphToJedi);
-  function runGraphToJedi() {
-    var data = new google.visualization.DataTable();
-    data.addColumn('number', 'Sprints');
-    data.addColumn('number', 'Jedi');
-    data.addRows(getArraytoTeacherGraph());
-    var options = {};
-    var chart = new google.visualization.LineChart(document.getElementById('graph-jedi'));
-    chart.draw(data, options);
+    google.charts.load('current', {packages: ['corechart', 'line']});
+    google.charts.setOnLoadCallback(runGraphToJedi);
+    function runGraphToJedi() {
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'Sprints');
+      data.addColumn('number', 'Jedi');
+      data.addRows(getArraytoTeacherGraph());
+      var options = {};
+      var chart = new google.visualization.LineChart(document.getElementById('graph-jedi'));
+      chart.draw(data, options);
+    }
   }
 }
