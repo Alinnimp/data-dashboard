@@ -198,7 +198,7 @@ function drawChartOverview(idOfDiv, sede) {
   var data = google.visualization.arrayToDataTable(nps(sede));
   var options = {
     title: '',
-    colors: ['#56f89a','#ff009e', '#ffe521']    
+    colors: ['#56f89a','#ff009e', '#ffe521']
   };
   options['title'] = sede;
   var chart = new google.visualization.PieChart(document.getElementById(idOfDiv));
@@ -275,9 +275,9 @@ function perfilSelected() {
       var studentStatus = data[localSelected][classSelected]['students'][i]['active'];
       if (studentStatus) {
       getStudentSection(studentStatus, i);
-      }
     }
-  
+    }
+
     function getInactiveStudents() {
       main.innerHTML = '';
       var studentsTotal = data[localSelected][classSelected]['students'].length;
