@@ -39,6 +39,7 @@ nav {
   border-radius: 15px;
   border-color: #ff009E;
   font-size: 20px;
+  background-color: white;
 }
 #menu-class {
   width: 200px;
@@ -47,6 +48,7 @@ nav {
   border-radius: 15px;
   border-color: #ff009E;
   font-size: 20px;
+  background-color: white;
 }
 ul {
   display: flex;
